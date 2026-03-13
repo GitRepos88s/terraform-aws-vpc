@@ -20,4 +20,10 @@ locals {
         },
         var.igw_tags
     )
+
+    az_names = slice(data.aws_availability_zones.names, 0, 2)
+    public_subnet_tags = merge(
+        local.common_tags,
+        var.public_subnet_tags
+    )
 }
