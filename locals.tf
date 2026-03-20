@@ -21,14 +21,16 @@ locals {
         var.igw_tags
     )
 
-    public_subnet_tags = merge(
+    az_names = slice(data.aws_availability_zones.available.names, 0, 2)
+
+    public_subnet_final_tags = merge(
         local.common_tags,
         #roboshop-dev-public-us-east-1a
         {
-        Name = "${var.project}-${var.environment}-public-"
+        Name = "${var.project}-${var.environment}-public-${local.az_names[count.index]}"
         },
         var.public_subnet_tags
     )
 
-    az_names = slice(data.aws_availability_zones.available.names, 0, 2)
+    
 }
